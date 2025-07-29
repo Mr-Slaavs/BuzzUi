@@ -1,5 +1,5 @@
 //
-//  BeepPillsHomeView.swift
+//  ContentView.swift
 //  BuzzButtons
 //
 //  Created by Alexander Slavny on 7/24/25.
@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BeePillsHomeView: View {
     @State private var bluetoothConnected = false
+    @State private var showingSchedule = false
+    @State private var pillSchedules: [PillDosage] = []
     
     var body: some View {
         ZStack {
@@ -103,7 +105,7 @@ struct BeePillsHomeView: View {
                     
                     // Schedule Button
                     Button(action: {
-                        // Handle schedule action
+                        showingSchedule = true
                     }) {
                         HStack(spacing: 15) {
                             Image(systemName: "calendar.badge.clock")
@@ -177,6 +179,11 @@ struct BeePillsHomeView: View {
                 }
                 .padding(.bottom, 32)
             }
+        }
+        .fullScreenCover(isPresented: $showingSchedule, onDismiss: {
+            showingSchedule = false
+        }) {
+            PillScheduleView(pillSchedules: $pillSchedules)
         }
     }
 }
