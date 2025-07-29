@@ -19,6 +19,7 @@ struct PillScheduleView: View {
     @Binding var pillSchedules: [PillDosage]
     @Environment(\.dismiss) private var dismiss
     
+    @State private var showChat = false
     @State private var showingAddSchedule = false
     @State private var newPillName = ""
     @State private var newDosage = ""
@@ -81,11 +82,11 @@ struct PillScheduleView: View {
                     
                     Spacer()
                     
-                    // Add Button
+                    // Help Button - matching home screen
                     Button(action: {
-                        showingAddSchedule = true
+                        showChat = true
                     }) {
-                        Image(systemName: "plus.circle.fill")
+                        Image(systemName: "questionmark.circle.fill")
                             .font(.system(size: 30))
                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                     }
@@ -94,6 +95,35 @@ struct PillScheduleView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 60)
                 .padding(.bottom, 20)
+                
+                // Add Button - full width
+                Button(action: {
+                    showingAddSchedule = true
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 20))
+                        Text("Add Schedule")
+                            .font(.system(size: 18, weight: .semibold))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(red: 0.0, green: 0.2, blue: 0.5))
+                            .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
                 
                 // Schedule List
                 ScrollView {
@@ -112,8 +142,37 @@ struct PillScheduleView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 100)
+                    .padding(.bottom, 20)
                 }
+                
+                // Upload Button - fixed at bottom
+                Button(action: {
+                    // Empty action - button does nothing
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "icloud.and.arrow.up.fill")
+                            .font(.system(size: 20))
+                        Text("Upload to Bee-Pills")
+                            .font(.system(size: 18, weight: .semibold))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white.opacity(0.7))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(red: 0.0, green: 0.2, blue: 0.5)) // Blue color
+                            .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal, 20)
+                .padding(.bottom, 34)
             }
         }
         .sheet(isPresented: $showingAddSchedule) {
@@ -144,6 +203,9 @@ struct PillScheduleView: View {
                     showingAddSchedule = false
                 }
             )
+        }
+        .fullScreenCover(isPresented: $showChat) {
+            BeeChatView()
         }
     }
 }
@@ -268,7 +330,7 @@ struct AddScheduleSheet: View {
                             TextField("Enter pill name", text: $pillName)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
-                        
+            
                         // Dosage
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Dosage")

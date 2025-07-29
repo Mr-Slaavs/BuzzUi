@@ -9,7 +9,9 @@ import SwiftUI
 
 struct BeePillsHomeView: View {
     @State private var bluetoothConnected = false
+    @State private var showChat = false
     @State private var showingSchedule = false
+    @State private var showingSettings = false
     @State private var pillSchedules: [PillDosage] = []
     
     var body: some View {
@@ -26,6 +28,25 @@ struct BeePillsHomeView: View {
             )
             .ignoresSafeArea()
             
+            // Help Button - positioned absolutely
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        showChat = true
+                    }) {
+                        Image(systemName: "questionmark.circle.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.horizontal, 25)
+                    .padding(.top, 60)
+                }
+                Spacer()
+            }
+            
+            // Main Content - unchanged positioning
             VStack(spacing: 40) {
                 Spacer()
                 
@@ -134,7 +155,7 @@ struct BeePillsHomeView: View {
                     
                     // Settings Button
                     Button(action: {
-                        // Handle settings action
+                        showingSettings = true
                     }) {
                         HStack(spacing: 16) {
                             Image(systemName: "gearshape.fill")
@@ -184,6 +205,16 @@ struct BeePillsHomeView: View {
             showingSchedule = false
         }) {
             PillScheduleView(pillSchedules: $pillSchedules)
+        }
+        .fullScreenCover(isPresented: $showChat, onDismiss: {
+            showChat = false
+        }) {
+            BeeChatView()
+        }
+        .fullScreenCover(isPresented: $showingSettings, onDismiss: {
+            showingSettings = false
+        }) {
+            SettingsView()
         }
     }
 }
