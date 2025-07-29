@@ -284,8 +284,7 @@ struct AddScheduleSheet: View {
                             Text("Time")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
-                            
-                            DatePicker("Select time", selection: $time, displayedComponents: .hourAndMinute)
+                            DatePicker(">>>", selection: $time, displayedComponents: .hourAndMinute)
                                 .datePickerStyle(WheelDatePickerStyle())
                                 .background(Color.white.opacity(0.8))
                                 .cornerRadius(8)
