@@ -95,15 +95,15 @@ struct BeeChatView: View {
                                     }
                                     
                                     VStack(spacing: 8) {
-                                        Text("Hello! I'm your Bee Chat assistant!")
+                                        Text("Hello! I'm Bee-Chat!")
                                             .font(.system(size: 18, weight: .semibold))
                                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                                         
-                                        Text("Ask me anything about your health, medications, or general questions.")
+                                        Text("Ask me anything about your health, your medications, or anything else I can help with.")
                                             .font(.system(size: 15, weight: .medium))
                                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
                                             .multilineTextAlignment(.center)
-                                            .padding(.horizontal, 30)
+                                            .padding(.horizontal, 20)
                                     }
                                     
                                     Spacer()

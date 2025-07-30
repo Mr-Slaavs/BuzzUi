@@ -13,6 +13,7 @@ struct PillDosage: Identifiable {
     var dosage: String
     var time: Date
     var frequency: String
+    var storageContainer: String
 }
 
 struct PillScheduleView: View {
@@ -25,8 +26,10 @@ struct PillScheduleView: View {
     @State private var newDosage = ""
     @State private var newTime = Date()
     @State private var newFrequency = "Daily"
+    @State private var newStorageContainer = "Column 1"
     
     let frequencies = ["Daily", "Twice Daily", "Weekly", "As Needed"]
+    let storageContainers = ["Column 1", "Column 2", "Column 3", "Column 4"]
     
     var body: some View {
         ZStack {
@@ -166,7 +169,7 @@ struct PillScheduleView: View {
                     .padding(.vertical, 18)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color(red: 0.0, green: 0.2, blue: 0.5)) // Blue color
+                            .fill(Color(red: 0.0, green: 0.2, blue: 0.5)) // Navy color
                             .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
                     )
                 }
@@ -181,13 +184,16 @@ struct PillScheduleView: View {
                 dosage: $newDosage,
                 time: $newTime,
                 frequency: $newFrequency,
+                storageContainer: $newStorageContainer,
                 frequencies: frequencies,
+                storageContainers: storageContainers,
                 onSave: {
                     let newSchedule = PillDosage(
                         pillName: newPillName,
                         dosage: newDosage,
                         time: newTime,
-                        frequency: newFrequency
+                        frequency: newFrequency,
+                        storageContainer: newStorageContainer
                     )
                     pillSchedules.append(newSchedule)
                     
@@ -196,6 +202,7 @@ struct PillScheduleView: View {
                     newDosage = ""
                     newTime = Date()
                     newFrequency = "Daily"
+                    newStorageContainer = "Column 1"
                     
                     showingAddSchedule = false
                 },
@@ -237,6 +244,10 @@ struct PillScheduleCard: View {
                 Text(schedule.dosage)
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
+                
+                Text(schedule.storageContainer)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.6))
             }
             
             Spacer()
@@ -288,7 +299,9 @@ struct AddScheduleSheet: View {
     @Binding var dosage: String
     @Binding var time: Date
     @Binding var frequency: String
+    @Binding var storageContainer: String
     let frequencies: [String]
+    let storageContainers: [String]
     let onSave: () -> Void
     let onCancel: () -> Void
     
@@ -367,6 +380,44 @@ struct AddScheduleSheet: View {
                             .background(Color.white.opacity(0.8))
                             .cornerRadius(8)
                         }
+                        
+                        // Storage Container
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Storage Column")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
+                            
+                            Menu {
+                                ForEach(storageContainers, id: \.self) { container in
+                                    Button(container) {
+                                        storageContainer = container
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Text(storageContainer)
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.down")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.white.opacity(0.8))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.3), lineWidth: 1)
+                                        )
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
                     }
                     .padding(.horizontal, 20)
                     
@@ -408,7 +459,7 @@ struct AddScheduleSheet: View {
 struct PillScheduleView_Previews: PreviewProvider {
     static var previews: some View {
         PillScheduleView(pillSchedules: .constant([
-            PillDosage(pillName: "Vitamin D", dosage: "1000 IU", time: Date(), frequency: "Daily")
+            PillDosage(pillName: "Vitamin D", dosage: "1000 IU", time: Date(), frequency: "Daily", storageContainer: "Column 1")
         ]))
     }
 }
