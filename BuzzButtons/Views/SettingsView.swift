@@ -11,18 +11,17 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var showChat = false
-    @State private var selectedAlarmSound = "Default Buzz"
+    @State private var selectedAlarmSound = "Flight of the Buzz-Pills"
     @State private var silentModeEnabled = false
     @State private var passwordLockEnabled = false
     @State private var showCaretakerSetup = false
     
     let alarmSounds = [
-        "Default Buzz",
-        "Gentle Chime",
-        "Classic Bell",
-        "Nature Sounds",
-        "Soft Piano",
-        "Digital Beep",
+        "Flight of the Buzz-Pills",
+        "Panic Mode",
+        "Gloomy March",
+        "WAKE UP",
+        "Pill Time!",
         "Add Custom +"
     ]
     
@@ -142,7 +141,7 @@ struct SettingsView: View {
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                                     
                                     Text("Disable all notification sounds")
-                                        .font(.system(size: 14, weight: .medium))
+                                        .font(.system(size: 13, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
                                 }
                                 
@@ -169,7 +168,7 @@ struct SettingsView: View {
                                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                                         
                                         Text("Set up monitoring and alerts")
-                                            .font(.system(size: 14, weight: .medium))
+                                            .font(.system(size: 13, weight: .medium))
                                             .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
                                     }
                                     
@@ -195,8 +194,8 @@ struct SettingsView: View {
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                                     
-                                    Text("Secure app with passcode")
-                                        .font(.system(size: 14, weight: .medium))
+                                    Text("Secure Bee-Pills with a custom passcode")
+                                        .font(.system(size: 13, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.7))
                                 }
                                 
@@ -207,8 +206,6 @@ struct SettingsView: View {
                             }
                         }
                         
-                        Spacer()
-                            .frame(height: 1)
                         
                         // Team Credits
                         VStack(spacing: 16) {
@@ -216,29 +213,29 @@ struct SettingsView: View {
                                 .font(.system(size: 40))
                             
                             VStack(spacing: 8) {
-                                Text("Developed by T-PREP Team")
-                                    .font(.system(size: 18, weight: .bold))
+                                Text("Developed by T-PREP Team 8")
+                                    .font(.system(size: 20, weight: .bold))
                                     .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5))
                                 
                                 VStack(spacing: 4) {
                                     Text("Kyle Shibao")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 18, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.8))
                                     
                                     Text("Aldrich Diniz")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 18, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.8))
                                     
                                     Text("Alexander Slavny")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 18, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.8))
                                     
                                     Text("Manuela Hernandez")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 18, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.8))
                                     
                                     Text("Miguel Coronado")
-                                        .font(.system(size: 16, weight: .medium))
+                                        .font(.system(size: 18, weight: .medium))
                                         .foregroundColor(Color(red: 0.0, green: 0.2, blue: 0.5).opacity(0.8))
                                 }
                             }
